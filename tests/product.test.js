@@ -1,9 +1,8 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const request = require("supertest");
 
-const app = request("../app.js");
-
-require("dotenv").config();
+const app = process.env.SERVER_LOCAL;
 
 /* Connecting to the database before each test. */
 beforeEach(async () => {
@@ -15,41 +14,42 @@ afterEach(async () => {
     await mongoose.connection.close();
   });
 
-/* Testing the API endpoints. */
-describe('GET /api/products', () => {
-    it('should return all products', async () => {
-        const res = await request(app).get("/api/products");
-        expect(res.statusCode).toBe(200);
-        expect(res.body.length).toBeGreaterThan(0);
-    });
+//* Testing the API endpoints. */
+describe("GET /api/products", () => {
+  it("should return all products", async () => {
+    const res = await request(app).get("/api/products");
+    expect(res.statusCode).toBe(200);
+    expect(res.body.length).toBeGreaterThan(0);
+  });
 });
+
 
 describe("GET /api/products/:id", () => {
     it("should return a product", async () => {
       const res = await request(app).get(
-        "/api/products/6331abc9e9ececcc2d449e44"
+        "/api/products/633899d4b53f530959d13b9b"
       );
       expect(res.statusCode).toBe(200);
-      expect(res.body.name).toBe("Product 1");
+      expect(res.body.name).toBe("Product 4");
     });
 });
   
 describe("POST /api/products", () => {
     it("should create a product", async () => {
       const res = await request(app).post("/api/products").send({
-        name: "Product 2",
+        name: "Product 4",
         price: 1009,
         description: "Description 2",
       });
       expect(res.statusCode).toBe(201);
-      expect(res.body.name).toBe("Product 2");
+      expect(res.body.name).toBe("Product 4");
     });
 });
   
 describe("PUT /api/products/:id", () => {
     it("should update a product", async () => {
       const res = await request(app)
-        .patch("/api/products/6331abc9e9ececcc2d449e44")
+        .patch("/api/products/633899d4b53f530959d13b9b")
         .send({
           name: "Product 4",
           price: 104,
@@ -64,7 +64,7 @@ describe("PUT /api/products/:id", () => {
 describe("DELETE /api/products/:id", () => {
     it("should delete a product", async () => {
       const res = await request(app).delete(
-        "/api/products/6331abc9e9ececcc2d449e44"
+        "/api/products/6338735c8e18f0d5eda0490f"
       );
       expect(res.statusCode).toBe(200);
     });
