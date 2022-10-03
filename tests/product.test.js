@@ -27,7 +27,7 @@ describe("GET /api/products", () => {
 describe("GET /api/products/:id", () => {
     it("should return a product", async () => {
       const res = await request(app).get(
-        "/api/products/633899d4b53f530959d13b9b"
+        "/api/products/633aff86bbe0e9b1e9a1ec25"
       );
       expect(res.statusCode).toBe(200);
       expect(res.body.name).toBe("Product 4");
@@ -46,10 +46,10 @@ describe("POST /api/products", () => {
     });
 });
   
-describe("PUT /api/products/:id", () => {
+describe("PATCH /api/products/:id", () => {
     it("should update a product", async () => {
       const res = await request(app)
-        .patch("/api/products/633899d4b53f530959d13b9b")
+        .patch("/api/products/633affb0bbe0e9b1e9a1ec29")
         .send({
           name: "Product 4",
           price: 104,
